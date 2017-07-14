@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
-#include "src/serial-lib.h"
+#include "serial-lib.h"
 
 long int parse_string(const char *strptr);
 
