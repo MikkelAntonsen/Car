@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <cstring>
 #include "serial-lib.h"
+#include <vector>
+#include <string>
 
 long int parse_string(const char *strptr);
 
@@ -19,20 +21,16 @@ int main()
         for (int i=0; buf[i]!=0; ++i) {
             std::cout << buf[i];
         }
-        std::cout << "Distance yo " << parse_string(strptr) << std::endl;
+        //std::cout << "Distance yo " << parse_string(strptr) << std::endl;
         std::cout << std::endl;
 
     }
-    // std::cout << r << std::endl;
-
 }
 
-long int parse_string(const char *strptr)
+void parse_string(std::string input, std::vector<int> &result)
 {
-    char buf[5] = {0};
-    const char *start = strchr(strptr, ':');
-    const char *end = strchr(strptr, ' ');
-    return  end-start;
+    result.push_back(0);
+    result.push_back(1);
 }
 
 // int main()
