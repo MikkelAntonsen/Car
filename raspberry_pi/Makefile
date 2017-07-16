@@ -15,4 +15,4 @@ all: src/main.cpp src/serial-lib.cpp tests/AllTests.cpp
 	$(CC) -o AllTests tests/AllTests.cpp tests/FirstTestsTest.cpp $(CPPFLAGS) $(CXXFLAGS) $(CFLAGS) $(LD_LIBRARIES)
 
 clean:
-	rm *.o *.a AllTests
+	rm *.o *.a AllTests raspberry_main
