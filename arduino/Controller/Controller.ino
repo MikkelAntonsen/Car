@@ -28,7 +28,7 @@ unsigned long steer_pin_time = 0;
 unsigned long engine_pin_time = 0;
 
 unsigned long lastMillis = 0;
-const long interval = 1000;
+const long interval = 0;
 
 Servo steer;  // servo object to control the servo
 Servo engine; // servo object to control the ESC
@@ -50,7 +50,7 @@ void setup()
   attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(STEERING_INPUT_PIN), timeSteeringInput, CHANGE);
 }
 
-void loop()
+void loop_()
 {
   if (millis() - lastMillis >= interval) {
     lastMillis = millis();
@@ -63,7 +63,7 @@ void loop()
   engine.writeMicroseconds(engine_input);
 }
 
-void debug_loop()
+void loop()
 {
   if (millis() - lastMillis >= interval) {
     lastMillis = millis();

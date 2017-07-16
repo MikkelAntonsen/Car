@@ -2,3 +2,7 @@ libs
 *.o
 *.a
 *.swp
+notes
+questions.cpp
+AllTests
+raspberry_main
