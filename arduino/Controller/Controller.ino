@@ -28,7 +28,7 @@ unsigned long steer_pin_time = 0;
 unsigned long engine_pin_time = 0;
 
 unsigned long lastMillis = 0;
-const long interval = 0;
+const long interval = 500;
 
 Servo steer;  // servo object to control the servo
 Servo engine; // servo object to control the ESC
@@ -36,7 +36,7 @@ Servo engine; // servo object to control the ESC
 void setup()
 {
   // start serial output to raspberry
-  Serial.begin(115200);
+  Serial.begin(4800);
 
   steer.attach(STEERING_OUTPUT_PIN);
   engine.attach(ENGINE_OUTPUT_PIN);
@@ -50,7 +50,7 @@ void setup()
   attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(STEERING_INPUT_PIN), timeSteeringInput, CHANGE);
 }
 
-void loop_()
+void loop()
 {
   if (millis() - lastMillis >= interval) {
     lastMillis = millis();
@@ -58,12 +58,13 @@ void loop_()
     Serial.print(steering_input, DEC);
     Serial.print(" engine:");
     Serial.println(engine_input, DEC);
+  
+    steer.writeMicroseconds(steering_input);
+    engine.writeMicroseconds(engine_input);
   }
-  steer.writeMicroseconds(steering_input);
-  engine.writeMicroseconds(engine_input);
 }
 
-void loop()
+void loop_()
 {
   if (millis() - lastMillis >= interval) {
     lastMillis = millis();
@@ -72,10 +73,11 @@ void loop()
     Serial.print(" engine:");
     Serial.println(debug_counter);
     debug_counter++;
-  }
   
-  steer.writeMicroseconds(steering_input);
-  engine.writeMicroseconds(engine_input);
+  
+    steer.writeMicroseconds(steering_input);
+    engine.writeMicroseconds(engine_input);
+  }
 }
 
 void timeEngineInput(void)
