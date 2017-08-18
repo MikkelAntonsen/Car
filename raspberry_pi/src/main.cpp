@@ -10,14 +10,15 @@
 
 int main()
 {
-    raspicam::RaspiCam Camera;
-    if ( !Camera.open() ) {
-	std::cout << "Unable to open camera." << std::endl;
-	return 0;
-    }
-
     std::ofstream log_file;
     log_file.open("episode_1.log");
+
+    raspicam::RaspiCam Camera;
+    if ( !Camera.open() ) {
+        log_file << "Unable to open camera." << std::endl;
+        return -1;
+    }
+
     /*
      *  Initialize serial communiations
      */
@@ -31,6 +32,13 @@ int main()
     /*
      *  Initialize  output files
      */
+    std::ofstream image_file("raspicam_test.ppm", std::ios::binary);
+    unsigned char image[Camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB)];
+    Camera.grab();
+    Camera.retrieve(image, raspicam::RASPICAM_FORMAT_RGB);
+    image_file << "P6" << std::endl << Camera.getWidth() << " " << Camera.getHeight() << " 255" << std::endl;
+    image_file.write((char *) image, Camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
+
     std::ofstream output_file;
     output_file.open("episode_1.data");
 
@@ -52,4 +60,5 @@ int main()
         output_file << control_values[0] << " " << control_values[1] << std::endl;
     }
     output_file.close();
+    return 0;
 }
