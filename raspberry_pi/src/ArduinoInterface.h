@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <ctype.h>
 
 void parse_arduino_input(std::string, std::vector<int> &);
 

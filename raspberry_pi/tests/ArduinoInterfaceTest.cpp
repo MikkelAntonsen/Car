@@ -31,16 +31,3 @@ TEST(ArduinoInputTestGroup, ThirdTest)
     CHECK(result[0] == 1670);
     CHECK(result[1] == 2482);
 }
-
-TEST(ArduinoInputTestGroup, TestShouldNotCrashOnInvalidInput)
-{
-    std::string test_string = "steer:abcd engine:efgh";
-    std::vector<int> result(2, 0);
-    try {
-        parse_arduino_input(test_string, result);
-    } catch (...) {
-        FAIL("Parse_arduino_input throws exception on malformed input.");
-    }
-    CHECK(result[0] == -1);
-    CHECK(result[1] == -1);
-}
