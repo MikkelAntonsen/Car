@@ -5,15 +5,28 @@
 #include "ArduinoInterface.h"
 #include <vector>
 #include <string>
+#include <raspicam/raspicam.h>
 
 int main()
 {
-    int fd;
-    fd = serialport_init("/dev/ttyACM0", 115200);
-    char buf[100];
+    raspicam::RaspiCam Camera;
+    if ( !Camera.open() ) {
+	std::cout << "Unable to open camera." << std::endl;
+	return 0;
+    }
 
+    int fd=-1;
+    std::cout << "Trying to connect to arduino" << std::endl;
+    while (-1 == fd) {
+        fd = serialport_init("/dev/ttyACM0", 4800);
+	sleep(1);
+	std::cout << ".";
+    }
+    std::cout << std::endl;
+
+    char buf[100];
     std::vector<int> control_values(2, 0);
-    std::cout << "Starting..." << std::endl;
+    std::cout << "Starting main loop..." << std::endl;
     while (1) {
 
         serialport_readline(fd, buf, 100, 100);
@@ -28,4 +41,5 @@ int main()
         std::cout << "steer:"<<control_values[0] << " engine:" << control_values[1] << std::endl;
 
     }
+    return 1;
 }
