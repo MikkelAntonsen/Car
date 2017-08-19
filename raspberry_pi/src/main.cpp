@@ -34,10 +34,12 @@ int main()
      */
     std::ofstream image_file("raspicam_test.ppm", std::ios::binary);
     unsigned char image[Camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB)];
+
     Camera.grab();
-    Camera.retrieve(image, raspicam::RASPICAM_FORMAT_RGB);
+    Camera.retrieve(image, raspicam::RASPICAM_FORMAT_IGNORE);
     image_file << "P6" << std::endl << Camera.getWidth() << " " << Camera.getHeight() << " 255" << std::endl;
     image_file.write((char *) image, Camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
+    image_file.close();
 
     std::ofstream output_file;
     output_file.open("episode_1.data");
