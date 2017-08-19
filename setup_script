@@ -1,0 +1,17 @@
+sudo apt-get --assume-yes install vim autoconf autogen libtool
+
+mkdir libs
+
+cd libs
+
+git clone https://github.com/cpputest/cpputest.git
+
+cd cpputest
+
+./autogen.sh
+./configure
+sudo make install
+make check
+
+echo "export CPPUTEST_HOME=$(pwd)" >> ~/.bashrc
+echo "export CPPUTEST_HOME=$(pwd)" >> ~/.zshrc
