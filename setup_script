@@ -1,6 +1,7 @@
-sudo apt-get --assume-yes install vim autoconf autogen libtool
+sudo apt-get --assume-yes install vim autoconf autogen libtool cmake
 
 mkdir libs
+mkdir raspberry_pi/bin
 
 cd libs
 
@@ -15,3 +16,16 @@ make check
 
 echo "export CPPUTEST_HOME=$(pwd)" >> ~/.bashrc
 echo "export CPPUTEST_HOME=$(pwd)" >> ~/.zshrc
+
+cd ..
+
+git clone https://github.com/cedricve/raspicam.git
+
+cd raspicam
+mkdir build
+cd build
+cmake ..
+
+make
+sudo make install
+sudo ldconfig
